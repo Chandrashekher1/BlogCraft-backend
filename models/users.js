@@ -1,8 +1,8 @@
+const jwt = require('jsonwebtoken')
 const Joi = require('joi')
-const { required } = require('joi')
 const mongoose = require('mongoose')
 
-const userSchema = new mongoose({
+const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required:true,
@@ -23,8 +23,12 @@ const userSchema = new mongoose({
         minlength:5,
         maxlength:1024
     },
-    isAdmin: true
+    isAdmin: Boolean
 })
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({_id: this._id, isAdmin: this.isAdmin}, process.env.post_jwtPrivateKey)
+    return token
+}
 
 const userModel = mongoose.model('users',userSchema)
 
@@ -35,8 +39,8 @@ function validateProduct(user){
         password: Joi.string().required()
     })
 
-    return Schema.validate(Schema)
+    return Schema.validate(user)
 }
 
-module.exports = userModel
-module.exports = validateProduct
+module.exports.Users = userModel
+module.exports.validate = validateProduct

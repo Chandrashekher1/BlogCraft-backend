@@ -1,4 +1,6 @@
-const {validate,Posts } = require('../models/posts')
+const admin = require('../middleware/admin')
+const auth = require('../middleware/auth')
+const {Posts } = require('../models/posts')
 const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
@@ -9,13 +11,13 @@ router.get('/', async (req,res) => {
     res.send(post)
 })
 
-router.get('/:id', async (req,res) => {
+router.get('/:id',auth, async (req,res) => {
     const post = await Posts.findById(req.params.id)
     if(!post) return res.send("Not any blog available...")
     res.send(post)
 })
 
-router.post('/', async (req,res) => {
+router.post('/',[auth,admin], async (req,res) => {
     const {error} = validate(req.body)
     if(error) return res.status(400).send(error.details[0].message)
 
@@ -31,7 +33,7 @@ router.post('/', async (req,res) => {
     res.send(post)
 })
 
-router.put('/:id', async(req,res) => {
+router.put('/:id',[auth,admin], async(req,res) => {
     const {error} = validate(req.body)
     if(error) return res.status(400).send(error.details[0].message)
     const post_update = await Posts.findByIdAndUpdate(req.params.id,
@@ -46,7 +48,7 @@ router.put('/:id', async(req,res) => {
     res.send(post_update)
 })
 
-router.delete('/:id', async (req,res) => {
+router.delete('/:id',[auth,admin], async (req,res) => {
     const post_delete = await Posts.findByIdAndDelete(req.params.id)
     if(!post_delete) return res.status(400).send("Blog is unavailable with this ID.")
 

@@ -9,7 +9,7 @@ if(!process.env.post_jwtPrivateKey) {
     process.exit(1)
 }
 
-mongoose.connect('mongodb://localhost/Blog')
+mongoose.connect(process.env.mongodb_uri)
     .then(() => console.log("mongodb is connected..."))
     .catch((err) => console.log(err.message))
 

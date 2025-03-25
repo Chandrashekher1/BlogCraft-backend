@@ -13,6 +13,5 @@ mongoose.connect(process.env.mongodb_uri)
     .then(() => console.log("mongodb is connected..."))
     .catch((err) => console.log(err.message))
 
-const PORT = 3000
 
-app.listen(PORT, console.log(`listening to port ${PORT}...`))
+app.listen(process.env.PORT, console.log(`listening to port ${process.env.PORT}...`))

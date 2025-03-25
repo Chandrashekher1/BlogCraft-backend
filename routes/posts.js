@@ -1,7 +1,6 @@
 const admin = require('../middleware/admin')
 const auth = require('../middleware/auth')
 const {Posts } = require('../models/posts')
-const mongoose = require('mongoose')
 const express = require('express')
 const router = express.Router()
 

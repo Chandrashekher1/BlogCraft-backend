@@ -11,12 +11,12 @@ if(!process.env.post_jwtPrivateKey) {
 }
 
 app.use(cors({
-    origin:"http//localhost:5173",
+    origin:"http://localhost:5173",
     methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-    allowedHeaders: ['Content-Type', 'Authorization'], 
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'], 
 }))
 
-mongoose.connect(process.env.mongodb_uri)
+mongoose.connect("mongodb://localhost/Blog")
     .then(() => console.log("mongodb is connected..."))
     .catch((err) => console.log(err.message))
 

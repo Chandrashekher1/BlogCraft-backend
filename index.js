@@ -16,7 +16,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token'], 
 }))
 
-mongoose.connect("mongodb://localhost/Blog")
+mongoose.connect(process.env.mongodb_uri)
     .then(() => console.log("mongodb is connected..."))
     .catch((err) => console.log(err.message))
 

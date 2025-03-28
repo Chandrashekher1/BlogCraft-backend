@@ -1,3 +1,4 @@
+const cors = require('cors')
 const mongoose = require('mongoose')
 const express = require('express')
 const app = express()
@@ -8,6 +9,12 @@ if(!process.env.post_jwtPrivateKey) {
     console.error('FATAL ERROR: jwtPrivateKey is not defined.')
     process.exit(1)
 }
+
+cors.use(cors({
+    origin:"http://localhost:5173/",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    allowedHeaders: ['Content-Type', 'Authorization'], 
+}))
 
 mongoose.connect(process.env.mongodb_uri)
     .then(() => console.log("mongodb is connected..."))

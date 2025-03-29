@@ -5,7 +5,7 @@ const {Users,validate} = require('../models/users')
 const express = require('express')
 const router = express.Router()
 
-router.get('/me', async (req,res) => {
+router.get('/me',[auth], async (req,res) => {
     const user = await Users.findById(req.user._id).select('-password')
     res.send(user)
 })
@@ -28,7 +28,7 @@ router.post('/', async (req,res) => {
     user.password = await bcrypt.hash(req.body.password,salt)
     user = await user.save()
     const token = user.generateAuthToken()    
-    res.header('x-auth-token',token).send(user)
+    res.header('Authorization',token).send(user)
 })
 
 module.exports = router

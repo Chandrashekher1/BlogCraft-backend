@@ -1,6 +1,6 @@
 const admin = require('../middleware/admin')
 const auth = require('../middleware/auth')
-const {Posts } = require('../models/posts')
+const {Posts, validate} = require('../models/posts')
 const express = require('express')
 const router = express.Router()
 

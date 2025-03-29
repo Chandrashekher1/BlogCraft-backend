@@ -43,7 +43,7 @@ function postValidate(post){
         title: Joi.string().min(0).max(200).required(),
         content: Joi.string().required(),
         author: Joi.string().required(),
-        tags: Joi.array().required(),
+        tags: Joi.string().required(),
         media:Joi.string().uri().required()
     })
 

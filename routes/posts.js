@@ -36,7 +36,7 @@ router.post('/', auth, async (req, res) => {
             content: req.body.content,
             author: req.body.author,
             tags: req.body.tags,
-            media: typeof req.body.media === 'object' ? req.body.media : {}, // Ensure media is an object
+            media: typeof req.body.media === 'object' ? req.body.media : {}, 
             userId: req.user ? req.user._id : null
         });
 
@@ -61,7 +61,7 @@ router.put('/:id', auth, async (req, res) => {
                 tags: req.body.tags,
                 media: typeof req.body.media === 'object' ? req.body.media : {}
             },
-            { new: true } // Return updated document
+            { new: true } 
         );
 
         if (!post_update) return res.status(404).send("Blog not found...");

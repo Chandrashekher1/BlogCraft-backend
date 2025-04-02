@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
     try {
-        const posts = await Posts.find().populate('userId', 'name email');
+        const posts = await Posts.find()
         if (!posts.length) return res.status(404).send("No blogs available...");
         res.send(posts);
     } catch (error) {
@@ -14,15 +14,15 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.get('/:id', auth, async (req, res) => {
-    try {
-        const post = await Posts.findById(req.params.id).populate('userId', 'name email');
-        if (!post) return res.status(404).send("Blog not found...");
-        res.send(post);
-    } catch (error) {
-        res.status(500).send("Internal Server Error");
-    }
-});
+// router.get('/:id', auth, async (req, res) => {
+//     try {
+//         const post = await Posts.findById(req.params.id).populate('userId', 'name email');
+//         if (!post) return res.status(404).send("Blog not found...");
+//         res.send(post);
+//     } catch (error) {
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
 
 router.post('/', auth, async (req, res) => {
     console.log("Decoded User:", req.user);

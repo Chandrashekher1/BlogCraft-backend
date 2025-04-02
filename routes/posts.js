@@ -1,56 +1,84 @@
-const admin = require('../middleware/admin')
-const auth = require('../middleware/auth')
-const {Posts, validate} = require('../models/posts')
-const express = require('express')
-const router = express.Router()
+const admin = require('../middleware/admin');
+const auth = require('../middleware/auth');
+const { Posts, validate } = require('../models/posts');
+const express = require('express');
+const router = express.Router();
 
-router.get('/', async (req,res) => {
-    const post = await Posts.find()
-    if(!post) return res.send("Not any blog available...")
-    res.send(post)
-})
+router.get('/', async (req, res) => {
+    try {
+        const posts = await Posts.find().populate('userId', 'name email');
+        if (!posts.length) return res.status(404).send("No blogs available...");
+        res.send(posts);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
 
-router.get('/:id',auth, async (req,res) => {
-    const post = await Posts.findById(req.params.id)
-    if(!post) return res.send("Not any blog available...")
-    res.send(post)
-})
+router.get('/:id', auth, async (req, res) => {
+    try {
+        const post = await Posts.findById(req.params.id).populate('userId', 'name email');
+        if (!post) return res.status(404).send("Blog not found...");
+        res.send(post);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
 
-router.post('/',auth, async (req,res) => {
-    const {error} = validate(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
+router.post('/', auth, async (req, res) => {
+    console.log("Decoded User:", req.user);
 
-    let post = new Posts({
-        title:req.body.title,
-        content:req.body.content,
-        author:req.body.author,
-        tags:req.body.tags,
-        media:req.body.media
-    })
+    try {
+        const { error } = validate(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
 
-    post = await post.save()
-    res.send(post)
-})
+        let post = new Posts({
+            title: req.body.title,
+            content: req.body.content,
+            author: req.body.author,
+            tags: req.body.tags,
+            media: typeof req.body.media === 'object' ? req.body.media : {}, // Ensure media is an object
+            userId: req.user ? req.user._id : null
+        });
 
-router.put('/:id',[auth,admin], async(req,res) => {
-    const {error} = validate(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
-    const post_update = await Posts.findByIdAndUpdate(req.params.id,
-        {
-            title:req.body.title,
-            author:req.body.author,
-            content:req.body.content,
-            tags:req.body.tags,
-            media:req.body.media
-        }
-    )
-    res.send(post_update)
-})
+        post = await post.save();
+        res.send(post);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
 
-router.delete('/:id',[auth,admin], async (req,res) => {
-    const post_delete = await Posts.findByIdAndDelete(req.params.id)
-    if(!post_delete) return res.status(400).send("Blog is unavailable with this ID.")
+router.put('/:id', auth, async (req, res) => {
+    try {
+        const { error } = validate(req.body);
+        if (error) return res.status(400).send(error.details[0].message);
 
-    res.send(post_delete)
-})
-module.exports = router
+        const post_update = await Posts.findByIdAndUpdate(
+            req.params.id,
+            {
+                title: req.body.title,
+                author: req.body.author,
+                content: req.body.content,
+                tags: req.body.tags,
+                media: typeof req.body.media === 'object' ? req.body.media : {}
+            },
+            { new: true } // Return updated document
+        );
+
+        if (!post_update) return res.status(404).send("Blog not found...");
+        res.send(post_update);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        const post_delete = await Posts.findByIdAndDelete(req.params.id);
+        if (!post_delete) return res.status(404).send("Blog is unavailable with this ID.");
+        res.send(post_delete);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+module.exports = router;

@@ -20,7 +20,7 @@ const postSchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Users', 
+    ref: 'users', 
     required: true,
   },
   date: {
@@ -48,8 +48,8 @@ const postSchema = new mongoose.Schema({
 });
 
 // Validation Function
-function postValidate(post) {
-  const Schema = Joi.object({
+function postValidate(post) { 
+  const Schema = Joi.object({ 
     title: Joi.string().min(1).max(200).required(),
     content: Joi.string().required(),
     author: Joi.string().required(),

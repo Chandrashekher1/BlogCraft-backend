@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', auth, async (req, res) => {
     try {
         const post = await Posts.findById(req.params.id)
-        if (!post) return res.status(404).send("Blog not found...");
+        if (!post) return res.status(404).json({message: "Blog not found..."});
         res.send(post);
     } catch (error) {
         res.status(500).send("Internal Server Error");

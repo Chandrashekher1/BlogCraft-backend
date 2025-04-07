@@ -21,7 +21,7 @@ router.post('/', async (req,res) => {
     
     let user = await Users.findOne({email:req.body.email})
     if(user) {
-        return res.status(400).send("User is already exist")
+        return res.status(400).json({ message: "User is already exists" });
     }
 
     user = new Users({
@@ -33,7 +33,7 @@ router.post('/', async (req,res) => {
     user.password = await bcrypt.hash(req.body.password,salt)
     user = await user.save()
     const token = user.generateAuthToken()    
-    res.header('Authorization',token).json({ message: "User registered", token }).send(user)
+    res.header('Authorization',token).json({ message: "User registered Successfully", token }).send(user)
 })
 
 

@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const JoiObjectId = require('joi-objectid')(Joi)
 
-
 const postSchema = new mongoose.Schema({
   title: {
     type: String,

@@ -26,10 +26,15 @@ router.get('/:id', auth, async (req, res) => {
 
 router.get('/user/:userId', auth, async (req, res) => {
     try {
-        const {userId} = req.params
-        const post = await Posts.findById({userId:userId})
-        if (!post) return res.status(404).json({message: "No blogs found for this user."});
-        res.send(post);
+        const { userId } = req.params;
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({ message: "Invalid user ID format" });
+        }
+
+        const posts = await Posts.find({ userId });
+        if (!posts.length) return res.status(404).json({ message: "No blogs found for this user." });
+        res.send(posts);
     } catch (error) {
         res.status(500).send("Internal Server Error");
     }

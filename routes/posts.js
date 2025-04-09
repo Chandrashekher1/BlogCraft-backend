@@ -3,6 +3,7 @@ const auth = require('../middleware/auth');
 const { Posts, validate } = require('../models/posts');
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 
 router.get('/', async (req, res) => {
     try {
@@ -31,8 +32,7 @@ router.get('/user/:userId', auth, async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(userId)) {
             return res.status(400).json({ message: "Invalid user ID format" });
         }
-
-        const posts = await Posts.find({ userId });
+        const posts = await Posts.find({ userId:userId });
         if (!posts.length) return res.status(404).json({ message: "No blogs found for this user." });
         res.send(posts);
     } catch (error) {

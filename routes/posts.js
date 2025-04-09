@@ -24,6 +24,16 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
+router.get('/user/:userId', auth, async (req, res) => {
+    try {
+        const {userId} = req.params
+        const post = await Posts.findById({userId:userId})
+        if (!post) return res.status(404).json({message: "No blogs found for this user."});
+        res.send(post);
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+});
 router.post('/', auth, async (req, res) => {
     try {
         const { error } = validate(req.body);
@@ -33,8 +43,6 @@ router.post('/', auth, async (req, res) => {
             title: req.body.title,
             content: req.body.content,
             author: req.body.author,
-            // tags: req.body.tags,
-            media: typeof req.body.media === 'object' ? req.body.media : {}, 
             userId: req.user ? req.user._id : null
         });
 
@@ -56,8 +64,6 @@ router.put('/:id', auth, async (req, res) => {
                 title: req.body.title,
                 author: req.body.author,
                 content: req.body.content,
-                tags: req.body.tags,
-                media: typeof req.body.media === 'object' ? req.body.media : {}
             },
             { new: true } 
         );

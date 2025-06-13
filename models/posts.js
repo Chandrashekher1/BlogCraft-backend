@@ -6,7 +6,7 @@ const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    trim: true,
+    // trim: true,
     maxlength: 200,
   },
   content: {
@@ -22,20 +22,12 @@ const postSchema = new mongoose.Schema({
     ref: 'users', 
     required: true,
   },
+  image: [String],
   date: {
     type: Date,
     default: Date.now,
   },
-  tags: [
-    {
-      type: String,
-      trim: true,
-    },
-  ],
-  media: {
-    url: { type: String },
-    type: { type: String, enum: ["image", "video", "none"], default: "none" },
-  },
+  
   createdAt: {
     type: Date,
     default: Date.now,
@@ -52,11 +44,6 @@ function postValidate(post) {
     title: Joi.string().min(1).max(200).required(),
     content: Joi.string().required(),
     author: Joi.string().required(),
-    tags: Joi.array().items(Joi.string()).optional(),
-    media: Joi.object({
-      url: Joi.string().uri().optional(),
-      type: Joi.string().valid("image", "video", "none").optional(),
-    }).optional(),
     userId: JoiObjectId().optional()
   });
 

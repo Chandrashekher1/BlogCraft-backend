@@ -4,7 +4,8 @@ const post = require('../routes/posts')
 const express = require('express')
 
 module.exports = function(app) {
-    app.use(express.json())
+    app.use(express.json()) 
+    app.use(express.urlencoded())
     app.use('/api/post',post)
     app.use('/api/user',user)
     app.use('/api/login',auth)

@@ -1,4 +1,4 @@
-const uploadMultiple = require('../config/storage')
+const {uploadMultiple} = require('../config/storage')
 const auth = require('../middleware/auth')
 const { Posts, validate } = require('../models/posts')
 const express = require('express')

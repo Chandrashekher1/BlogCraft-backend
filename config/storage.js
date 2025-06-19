@@ -14,6 +14,10 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage });
-const uploadMultiple = upload.array('blog',5); 
+const uploadMultiple = upload.array('blog',5)
+const uploadSingle = upload.single('profile')
 
-module.exports = uploadMultiple;
+module.exports = {
+  uploadSingle,
+  uploadMultiple
+}

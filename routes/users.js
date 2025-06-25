@@ -47,17 +47,21 @@ try {
     user.password = await bcrypt.hash(req.body.password, salt);
     user = await user.save();
     const token = user.generateAuthToken();
+    
 
-    res.status(201).json({
+    res.status(201)
+    .header('Authorization',token)
+    .json({
       success: true,
       message: "User registered successfully",
+      token,
       data: {
         _id: user._id,
         name: user.name,
         email: user.email,
         image: user.image
       }
-    }).header('Authorization',token)
+    });
   } catch (err) {
     res.status(500).json({ success: false, message: "Registration failed", error: err.message });
   }

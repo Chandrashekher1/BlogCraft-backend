@@ -38,7 +38,7 @@ const userModel = mongoose.model('users',userSchema)
 function validateProduct(user){
     const Schema = Joi.object({
         name: Joi.string().min(3).max(255).required(),
-        email: Joi.email().min(0).max(2000).required(),
+        email: Joi.string().email().min(0).max(2000).required(),
         password: Joi.string().required()
     })
 

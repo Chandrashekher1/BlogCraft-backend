@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
         if (!posts.length) return res.status(404).send("No blogs available...");
         res.send(posts);
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message: "Internal server error", error:error.message});
     }
 });
 
@@ -21,7 +21,7 @@ router.get('/:id', auth, async (req, res) => {
         if (!post) return res.status(404).json({message: "Blog not found..."});
         res.send(post);
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message:"Internal Server Error",error:error.message});
     }
 });
 
@@ -36,7 +36,7 @@ router.get('/user/:userId', auth, async (req, res) => {
         if (!posts.length) return res.status(404).json({ message: "No blogs found for this user." });
         res.send(posts);
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message:"Internal Server Error",error:error.message});
     }
 });
 router.post('/', auth, uploadMultiple,async (req, res) => {
@@ -45,6 +45,10 @@ router.post('/', auth, uploadMultiple,async (req, res) => {
         const { error } = validate(req.body)
         if (error) return res.status(400).send(error.details[0].message)
         
+        if(!images){
+            return  res.status(500).json({message:"blog images are required."})
+        }
+
         let post = new Posts({
             title: req.body.title,
             content: req.body.content,
@@ -55,7 +59,7 @@ router.post('/', auth, uploadMultiple,async (req, res) => {
         post = await post.save()
         res.send(post)
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message:"Internal Server Error",error: error.message});
     }
 });
 
@@ -79,7 +83,7 @@ router.put('/:id', auth,uploadMultiple, async (req, res) => {
         if (!post_update) return res.status(404).send("Blog not found...");
         res.send(post_update);
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message:"Internal Server Error",error: error.message});
     }
 })
 
@@ -99,7 +103,7 @@ router.patch('/:id',auth, uploadMultiple, async (req, res) => {
         if (!post_update) return res.status(404).send("Blog not found...");
         res.send(post_update);
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message:"Internal Server Error",error:error.message});
     }
 })
 
@@ -109,7 +113,7 @@ router.delete('/:id', auth, async (req, res) => {
         if (!post_delete) return res.status(404).send("Blog is unavailable with this ID.");
         res.send(post_delete);
     } catch (error) {
-        res.status(500).send("Internal Server Error");
+        res.status(500).json({message:"Internal Server Error",error:error.message});
     }
 });
 

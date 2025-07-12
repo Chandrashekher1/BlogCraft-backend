@@ -27,7 +27,7 @@ VibeScript is a full-featured blogging platform built using the MERN stack. This
 ---
 
 ## 📁 Folder Structure
-
+```
 vibescript-backend/
 │
 
@@ -57,7 +57,7 @@ vibescript-backend/
 ├── app.js / server.js     # Entry point
 ├── package.json           # Project metadata
 └── README.md              # You're here!
-
+```
 ---
 
 ## 🧪 Tech Stack
@@ -84,15 +84,10 @@ cd vibescript-backend
 ``` bash
 npm install
 ```
-### 3. Configure Environment Variables 
-Create a .env file in the root directory:
-PORT=3000
-MONGO_URI=mongodb+srv://<your_db_url>
-JWT_SECRET=yourSuperSecretKey
 
-### 4. Run the Server
+### 3. Run the Server
 ``` bash
-npm run dev
+node index.js
 ```
 ## 🧠 Contributing
 Pull requests are welcome. For major changes, open an issue first to discuss what you’d like to change.

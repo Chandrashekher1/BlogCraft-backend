@@ -46,17 +46,17 @@ vibescript-backend/
 ├── middleware/            # Custom middlewares (auth, error handling)
 │   └── auth.js
 │
-├── config/                # DB config, environment variables
+├── config/                # DB config
 │   └── db.js
 │
 ├── utils/                 # Utility functions
 │   └── validate.js
 │
-├── .env                   # Environment variables
-├── .gitignore             # Ignored files
-├── app.js / server.js     # Entry point
-├── package.json           # Project metadata
-└── README.md              # You're here!
+├── .env                   
+├── .gitignore             
+├── app.js / server.js     
+├── package.json          
+└── README.md              
 ```
 ---
 

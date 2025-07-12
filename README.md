@@ -4,7 +4,7 @@ VibeScript is a full-featured blogging platform built using the MERN stack. This
 
 ---
 
-## 🔗 Live API Endpoint (Optional)
+## 🔗 Live API Endpoint
 
 - https://cp-blog.onrender.com/api/post
 - https://cp-blog.onrender.com/api/user
@@ -28,15 +28,35 @@ VibeScript is a full-featured blogging platform built using the MERN stack. This
 
 ## 📁 Folder Structure
 
-/vibescript-backend
-  │
-  -├── models/ # Mongoose Schemas
-  -├── routes/ # API Routes
-  -├── controllers/ # Business Logic
-  -├── middleware/ # Auth & Validation
-  -├── utils/ # Helper functions (e.g., token handling)
-  -├── .env # Environment Variables
-  -├── server.js # App entry point
+vibescript-backend/
+│
+
+├── models/                # Mongoose models (User, Post, etc.)
+│   ├── user.js
+│   ├── post.js
+│
+├── routes/                # Route handlers
+│   ├── userRoutes.js
+│   ├── postRoutes.js
+│
+├── controllers/           # Controller logic
+│   ├── userController.js
+│   ├── postController.js
+│
+├── middleware/            # Custom middlewares (auth, error handling)
+│   └── auth.js
+│
+├── config/                # DB config, environment variables
+│   └── db.js
+│
+├── utils/                 # Utility functions
+│   └── validate.js
+│
+├── .env                   # Environment variables
+├── .gitignore             # Ignored files
+├── app.js / server.js     # Entry point
+├── package.json           # Project metadata
+└── README.md              # You're here!
 
 ---
 

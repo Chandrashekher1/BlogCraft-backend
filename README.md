@@ -1,6 +1,6 @@
-# 📝 VibeScript - Backend API
+# 📝 BlogCraft - Backend API
 
-VibeScript is a full-featured blogging platform built using the MERN stack. This is the **backend** part of the application, responsible for handling API requests, authentication, blog post management, and user data.
+BlogCraft is a modern, feature-rich blogging platform that empowers users to create, express, and share their stories with the world. Designed with creativity and accessibility in mind, BlogCraft allows users to write beautifully formatted blogs, embed multimedia content, and engage with a seamless user experience.
 
 ---
 
@@ -76,8 +76,8 @@ vibescript-backend/
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/Chandrashekher1/vibescript-backend.git
-cd vibescript-backend
+git clone https://github.com/Chandrashekher1/blogCraft-backend.git
+cd blogcraft
 ```
 ### 2. Install Dependencies
 

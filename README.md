@@ -1,10 +1,10 @@
-# 📝 BlogCraft - Backend API
+#  BlogCraft - Backend API
 
 BlogCraft is a modern, feature-rich blogging platform that empowers users to create, express, and share their stories with the world. Designed with creativity and accessibility in mind, BlogCraft allows users to write beautifully formatted blogs, embed multimedia content, and engage with a seamless user experience.
 
 ---
 
-## 🔗 Live API Endpoint
+##  Live API Endpoint
 
 - https://cp-blog.onrender.com/api/post
 - https://cp-blog.onrender.com/api/user
@@ -12,21 +12,21 @@ BlogCraft is a modern, feature-rich blogging platform that empowers users to cre
 
 ---
 
-## ⚙️ Features
+##  Features
 
-- ✅ User Registration & Login (JWT Auth)
-- 🛡 Protected Routes using Middleware
-- 📝 CRUD Operations for Blog Posts
-- 👥 User Profiles
-- 🔖 Categories / Tags
-- 📅 Timestamps and Sorting
-- 🧾 MongoDB with Mongoose Models
-- 📦 Scalable File Structure
-- 🌐 CORS Configured for Frontend Access
+-  User Registration & Login (JWT Auth)
+-  Protected Routes using Middleware
+- CRUD Operations for Blog Posts
+-  User Profiles
+-  Categories / Tags
+-  Timestamps and Sorting
+-  MongoDB with Mongoose Models
+-  Scalable File Structure
+-  CORS Configured for Frontend Access
 
 ---
 
-## 📁 Folder Structure
+##  Folder Structure
 ```
 vibescript-backend/
 │
@@ -60,7 +60,7 @@ vibescript-backend/
 ```
 ---
 
-## 🧪 Tech Stack
+##  Tech Stack
 
 - **Node.js**
 - **Express.js**
@@ -89,9 +89,9 @@ npm install
 ``` bash
 node index.js
 ```
-## 🧠 Contributing
+##  Contributing
 Pull requests are welcome. For major changes, open an issue first to discuss what you’d like to change.
 
-## 📄 License
+##  License
 MIT © 2025 Chandrashekher Prasad
 
